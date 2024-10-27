@@ -7,7 +7,13 @@ import (
 )
 
 func NotificationHandler(c *fiber.Ctx) error {
+	fmt.Printf("Method: %s\n", c.Method())
+	fmt.Printf("URL: %s\n", c.OriginalURL())
+	fmt.Printf("Headers: %v\n", c.GetReqHeaders())
+	fmt.Printf("Body: %s\n", string(c.Body()))
+
 	var body any
+
 	if err := c.BodyParser(&body); err != nil {
 		fmt.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -15,8 +21,6 @@ func NotificationHandler(c *fiber.Ctx) error {
 			"message": "Invalid request",
 		})
 	}
-
-	fmt.Println(body)
 
 	return c.JSON(fiber.Map{
 		"status":  "success",
