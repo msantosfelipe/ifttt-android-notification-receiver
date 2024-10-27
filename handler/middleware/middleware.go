@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/msantosfelipe/ifttt-android-notification-receiver/app/config"
+	"github.com/msantosfelipe/ifttt-android-notification-receiver/config"
 )
 
 func ApiKeyMiddleware(c *fiber.Ctx) error {
