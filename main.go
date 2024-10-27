@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/msantosfelipe/ifttt-android-notification-receiver/app/config"
 	"github.com/msantosfelipe/ifttt-android-notification-receiver/app/handler"
+	"github.com/msantosfelipe/ifttt-android-notification-receiver/app/handler/middleware"
 )
 
 func main() {
@@ -15,7 +16,7 @@ func main() {
 	fmt.Println("Starting server...")
 	app := fiber.New()
 
-	// app.Use(middleware.ApiKeyMiddleware)
+	app.Use(middleware.ApiKeyMiddleware)
 
 	app.Post(fmt.Sprintf("%s/receive", config.ENV.API_PREFIX), handler.NotificationHandler)
 
