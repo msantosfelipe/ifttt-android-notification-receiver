@@ -47,7 +47,7 @@ func (pns *pushNotificationSender) PushNotification(notificationText string) {
 
 	request := pns.apiClient.DefaultApi.CreateNotification(osAuthCtx)
 
-	resp, r, err := request.Notification(notification).Execute()
+	_, r, err := request.Notification(notification).Execute()
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CreateNotification`: %v\n", err)
@@ -55,6 +55,5 @@ func (pns *pushNotificationSender) PushNotification(notificationText string) {
 		return
 	}
 
-	fmt.Fprintf(os.Stdout, "Response from `CreateNotification`: %v\n", resp)
-	fmt.Fprintf(os.Stdout, "Notification ID: %v\n", resp.GetId())
+	fmt.Println("Push notification sent successfully!")
 }

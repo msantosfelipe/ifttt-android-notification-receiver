@@ -44,7 +44,6 @@ func (ms *mailSender) SendMail(appName, notificationText string) {
 	fmt.Println("Sending email...")
 	if err := dialer.DialAndSend(message); err != nil {
 		fmt.Println("Error:", err)
-		panic(err)
 	} else {
 		fmt.Println("Email sent successfully!")
 	}
