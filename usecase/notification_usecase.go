@@ -9,11 +9,18 @@ import (
 )
 
 type usecase struct {
-	mailSender infra.MailSender
+	mailSender             infra.MailSender
+	pushNotificationSender infra.PushNotificationSender
 }
 
-func NewNotificationUsecase(mailSender infra.MailSender) domain.NotificationUsecase {
-	return &usecase{mailSender: mailSender}
+func NewNotificationUsecase(
+	mailSender infra.MailSender,
+	pushNotificationSender infra.PushNotificationSender,
+) domain.NotificationUsecase {
+	return &usecase{
+		mailSender:             mailSender,
+		pushNotificationSender: pushNotificationSender,
+	}
 }
 
 func (uc *usecase) ProcessNotification(notification domain.Notification) error {
@@ -22,17 +29,12 @@ func (uc *usecase) ProcessNotification(notification domain.Notification) error {
 		return nil
 	}
 
-	uc.SendEmail(notification.Name, notification.Body)
+	uc.mailSender.SendMail(notification.Name, notification.Body)
+	uc.pushNotificationSender.PushNotification(
+		fmt.Sprint("%s: - %s", notification.Name, notification.Body),
+	)
 
 	return nil
-}
-
-func (uc *usecase) SendEmail(appName, notificationText string) {
-	if config.EMAIL_ENV.ENABLE_EMAIL {
-		uc.mailSender.SendMail(appName, notificationText)
-	}
-
-	fmt.Println("Email is disabled")
 }
 
 func isValidApp(name string) bool {

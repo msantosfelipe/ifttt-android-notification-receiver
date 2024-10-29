@@ -17,7 +17,8 @@ func main() {
 
 	// Initialize dependencies
 	mailSender := infra.NewMailSender()
-	uc := usecase.NewNotificationUsecase(mailSender)
+	pushNotificationSender := infra.NewPushNotificationSender()
+	uc := usecase.NewNotificationUsecase(mailSender, pushNotificationSender)
 	notificationHandler := handler.NewNotificationHandler(uc)
 
 	// Init server

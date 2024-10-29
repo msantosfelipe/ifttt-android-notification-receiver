@@ -7,17 +7,26 @@ import (
 	gomail "gopkg.in/mail.v2"
 )
 
-type mailSender struct{}
+type mailSender struct {
+	isEnabled bool
+}
 
 type MailSender interface {
 	SendMail(appName, notificationText string)
 }
 
 func NewMailSender() MailSender {
-	return &mailSender{}
+	return &mailSender{
+		isEnabled: config.EMAIL_ENV.ENABLE,
+	}
 }
 
 func (ms *mailSender) SendMail(appName, notificationText string) {
+	if !ms.isEnabled {
+		fmt.Println("Email is disabled")
+		return
+	}
+
 	message := gomail.NewMessage()
 
 	message.SetHeader("From", config.EMAIL_ENV.EMAIL_FROM)

@@ -9,25 +9,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type Config struct {
-	API_PREFIX    string
-	PORT          string
-	VALID_API_KEY string
-	VALID_APPS    []string
-}
-
-type Email struct {
-	ENABLE_EMAIL   bool
-	EMAIL_SERVER   string
-	EMAIL_PORT     int
-	EMAIL_FROM     string
-	EMAIL_TO       string
-	EMAIL_USERNAME string
-	EMAIL_PASSWORD string
-}
-
 var ENV Config
 var EMAIL_ENV Email
+var PUSH_NOTIFICATION_ENV PushNotification
 
 func InitVars() {
 	// Load .env file
@@ -44,13 +28,19 @@ func InitVars() {
 	}
 
 	EMAIL_ENV = Email{
-		ENABLE_EMAIL:   parseBool(os.Getenv("ENABLE_EMAIL")),
+		ENABLE:         parseBool(os.Getenv("ENABLE_EMAIL")),
 		EMAIL_SERVER:   os.Getenv("EMAIL_SERVER"),
 		EMAIL_PORT:     parseInt(os.Getenv("EMAIL_PORT")),
 		EMAIL_FROM:     os.Getenv("EMAIL_FROM"),
 		EMAIL_TO:       os.Getenv("EMAIL_TO"),
 		EMAIL_USERNAME: os.Getenv("EMAIL_USERNAME"),
 		EMAIL_PASSWORD: os.Getenv("EMAIL_PASSWORD"),
+	}
+
+	PUSH_NOTIFICATION_ENV = PushNotification{
+		ENABLE:                  parseBool(os.Getenv("ENABLE_PUSH_NOTIFICATION")),
+		ONE_SIGNAL_APP_ID:       os.Getenv("ONE_SIGNAL_APP_ID"),
+		ONE_SIGNAL_REST_API_KEY: os.Getenv("ONE_SIGNAL_REST_API_KEY"),
 	}
 }
 
