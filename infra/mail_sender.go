@@ -23,7 +23,6 @@ func NewMailSender() MailSender {
 
 func (ms *mailSender) SendMail(appName, notificationText string) {
 	if !ms.isEnabled {
-		fmt.Println("Email is disabled")
 		return
 	}
 

@@ -27,7 +27,6 @@ func NewPushNotificationSender() PushNotificationSender {
 
 func (pns *pushNotificationSender) PushNotification(notificationText string) {
 	if !pns.isEnabled {
-		fmt.Println("Push notification is disabled")
 		return
 	}
 
