@@ -30,15 +30,20 @@ func (uc *usecase) ProcessNotification(notification domain.Notification) error {
 	}
 
 	uc.mailSender.SendMail(notification.Name, notification.Body)
+
 	uc.pushNotificationSender.PushNotification(
-		fmt.Sprint("%s: - %s", notification.Name, notification.Body),
+		fmt.Sprintf("%s: - %s", notification.Name, notification.Body),
 	)
 
 	return nil
 }
 
 func isValidApp(name string) bool {
-	for _, i := range config.ENV.VALID_APPS {
+	if config.ENV.ALLOW_ALL_APPS {
+		return true
+	}
+
+	for _, i := range config.ENV.ALLOWED_APPS {
 		if i == name {
 			return true
 		}

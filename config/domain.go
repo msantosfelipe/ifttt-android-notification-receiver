@@ -1,10 +1,11 @@
 package config
 
 type Config struct {
-	API_PREFIX    string
-	PORT          string
-	VALID_API_KEY string
-	VALID_APPS    []string
+	API_PREFIX     string
+	PORT           string
+	VALID_API_KEY  string
+	ALLOW_ALL_APPS bool
+	ALLOWED_APPS   []string
 }
 
 type Email struct {
@@ -21,4 +22,5 @@ type PushNotification struct {
 	ENABLE                  bool
 	ONE_SIGNAL_APP_ID       string
 	ONE_SIGNAL_REST_API_KEY string
+	ONE_SIGNAL_SEGMENT      string
 }

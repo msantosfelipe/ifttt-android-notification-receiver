@@ -41,7 +41,7 @@ func (pns *pushNotificationSender) PushNotification(notificationText string) {
 	)
 
 	notification := *onesignal.NewNotification(appId)
-	notification.SetIncludedSegments([]string{"Subscribed Users"})
+	notification.SetIncludedSegments([]string{config.PUSH_NOTIFICATION_ENV.ONE_SIGNAL_SEGMENT})
 	notification.SetIsIos(false)
 	stringMap := onesignal.StringMap{En: &notificationText}
 	notification.Contents = *onesignal.NewNullableStringMap(&stringMap)

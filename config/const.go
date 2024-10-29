@@ -21,10 +21,11 @@ func InitVars() {
 	}
 
 	ENV = Config{
-		API_PREFIX:    os.Getenv("API_PREFIX"),
-		PORT:          os.Getenv("PORT"),
-		VALID_API_KEY: os.Getenv("VALID_API_KEY"),
-		VALID_APPS:    parseList(os.Getenv("VALID_APPS")),
+		API_PREFIX:     os.Getenv("API_PREFIX"),
+		PORT:           os.Getenv("PORT"),
+		VALID_API_KEY:  os.Getenv("VALID_API_KEY"),
+		ALLOW_ALL_APPS: parseBool(os.Getenv("ALLOW_ALL_APPS")),
+		ALLOWED_APPS:   parseList(os.Getenv("VALID_APPS")),
 	}
 
 	EMAIL_ENV = Email{
@@ -41,6 +42,7 @@ func InitVars() {
 		ENABLE:                  parseBool(os.Getenv("ENABLE_PUSH_NOTIFICATION")),
 		ONE_SIGNAL_APP_ID:       os.Getenv("ONE_SIGNAL_APP_ID"),
 		ONE_SIGNAL_REST_API_KEY: os.Getenv("ONE_SIGNAL_REST_API_KEY"),
+		ONE_SIGNAL_SEGMENT:      os.Getenv("ONE_SIGNAL_SEGMENT"),
 	}
 }
 
