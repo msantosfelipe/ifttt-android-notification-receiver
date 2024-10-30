@@ -1,4 +1,4 @@
-package config
+package domain
 
 type Config struct {
 	API_PREFIX     string

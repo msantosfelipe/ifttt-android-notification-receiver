@@ -7,11 +7,12 @@ import (
 	"strings"
 
 	"github.com/joho/godotenv"
+	"github.com/msantosfelipe/ifttt-android-notification-receiver/domain"
 )
 
-var ENV Config
-var EMAIL_ENV Email
-var PUSH_NOTIFICATION_ENV PushNotification
+var ENV domain.Config
+var EMAIL_ENV domain.Email
+var PUSH_NOTIFICATION_ENV domain.PushNotification
 
 func InitVars() {
 	// Load .env file
@@ -20,7 +21,7 @@ func InitVars() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	ENV = Config{
+	ENV = domain.Config{
 		API_PREFIX:     os.Getenv("API_PREFIX"),
 		PORT:           os.Getenv("PORT"),
 		VALID_API_KEY:  os.Getenv("VALID_API_KEY"),
@@ -28,7 +29,7 @@ func InitVars() {
 		ALLOWED_APPS:   parseList(os.Getenv("ALLOWED_APPS")),
 	}
 
-	EMAIL_ENV = Email{
+	EMAIL_ENV = domain.Email{
 		ENABLE:         parseBool(os.Getenv("ENABLE_EMAIL")),
 		EMAIL_SERVER:   os.Getenv("EMAIL_SERVER"),
 		EMAIL_PORT:     parseInt(os.Getenv("EMAIL_PORT")),
@@ -38,7 +39,7 @@ func InitVars() {
 		EMAIL_PASSWORD: os.Getenv("EMAIL_PASSWORD"),
 	}
 
-	PUSH_NOTIFICATION_ENV = PushNotification{
+	PUSH_NOTIFICATION_ENV = domain.PushNotification{
 		ENABLE:                  parseBool(os.Getenv("ENABLE_PUSH_NOTIFICATION")),
 		ONE_SIGNAL_APP_ID:       os.Getenv("ONE_SIGNAL_APP_ID"),
 		ONE_SIGNAL_REST_API_KEY: os.Getenv("ONE_SIGNAL_REST_API_KEY"),
