@@ -27,6 +27,7 @@ func InitVars() {
 		VALID_API_KEY:  os.Getenv("VALID_API_KEY"),
 		ALLOW_ALL_APPS: parseBool(os.Getenv("ALLOW_ALL_APPS")),
 		ALLOWED_APPS:   parseList(os.Getenv("ALLOWED_APPS")),
+		ALLOWED_TITLES: parseList(os.Getenv("ALLOWED_TITLES")),
 	}
 
 	EMAIL_ENV = domain.Email{
