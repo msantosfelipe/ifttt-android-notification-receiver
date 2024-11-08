@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/msantosfelipe/ifttt-android-notification-receiver/config"
 	"github.com/msantosfelipe/ifttt-android-notification-receiver/domain"
@@ -65,7 +66,7 @@ func isValidTitle(appName, title string) error {
 	}
 
 	for _, i := range config.ENV.ALLOWED_TITLES {
-		if i == title {
+		if strings.Contains(i, title) {
 			return nil
 		}
 	}
