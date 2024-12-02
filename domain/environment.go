@@ -20,8 +20,11 @@ type Email struct {
 }
 
 type PushNotification struct {
-	ENABLE                  bool
+	ENABLE_ONE_SIGNAL       bool
+	ENABLE_PUSHOVER         bool
 	ONE_SIGNAL_APP_ID       string
 	ONE_SIGNAL_REST_API_KEY string
 	ONE_SIGNAL_SEGMENT      string
+	PUSH_OVER_APP_TOKEN     string
+	PUSH_OVER_APP_RECIPIENT string
 }

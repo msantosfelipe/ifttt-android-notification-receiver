@@ -41,10 +41,12 @@ func InitVars() {
 	}
 
 	PUSH_NOTIFICATION_ENV = domain.PushNotification{
-		ENABLE:                  parseBool(os.Getenv("ENABLE_PUSH_NOTIFICATION")),
+		ENABLE_ONE_SIGNAL:       parseBool(os.Getenv("ENABLE_ONE_SIGNAL_NOTIFICATION")),
+		ENABLE_PUSHOVER:         parseBool(os.Getenv("ENABLE_PUSHOVER_NOTIFICATION")),
 		ONE_SIGNAL_APP_ID:       os.Getenv("ONE_SIGNAL_APP_ID"),
 		ONE_SIGNAL_REST_API_KEY: os.Getenv("ONE_SIGNAL_REST_API_KEY"),
 		ONE_SIGNAL_SEGMENT:      os.Getenv("ONE_SIGNAL_SEGMENT"),
+		PUSH_OVER_APP_TOKEN:     os.Getenv("PUSH_OVER_APP_TOKEN"),
 	}
 }
 

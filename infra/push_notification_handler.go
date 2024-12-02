@@ -3,15 +3,19 @@ package infra
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 
 	onesignal "github.com/OneSignal/onesignal-go-api"
+	"github.com/gregdel/pushover"
 	"github.com/msantosfelipe/ifttt-android-notification-receiver/config"
 )
 
 type pushNotificationSender struct {
-	isEnabled bool
-	apiClient *onesignal.APIClient
+	isOneSignalEnabled bool
+	isPushOverEnabled  bool
+	oneSignalClient    *onesignal.APIClient
+	pushOverClient     *pushover.Pushover
 }
 
 type PushNotificationSender interface {
@@ -20,16 +24,34 @@ type PushNotificationSender interface {
 
 func NewPushNotificationSender() PushNotificationSender {
 	return &pushNotificationSender{
-		isEnabled: config.PUSH_NOTIFICATION_ENV.ENABLE,
-		apiClient: onesignal.NewAPIClient(onesignal.NewConfiguration()),
+		isOneSignalEnabled: config.PUSH_NOTIFICATION_ENV.ENABLE_ONE_SIGNAL,
+		isPushOverEnabled:  config.PUSH_NOTIFICATION_ENV.ENABLE_PUSHOVER,
+		oneSignalClient:    onesignal.NewAPIClient(onesignal.NewConfiguration()),
+		pushOverClient:     pushover.New(config.PUSH_NOTIFICATION_ENV.PUSH_OVER_APP_TOKEN),
 	}
 }
 
 func (pns *pushNotificationSender) PushNotification(notificationText string) {
-	if !pns.isEnabled {
-		return
+	if pns.isOneSignalEnabled {
+		pns.OneSignalPushNotification(notificationText)
+	}
+	if pns.isPushOverEnabled {
+		pns.PushOverlPushNotification(notificationText)
+	}
+}
+func (pns *pushNotificationSender) PushOverlPushNotification(notificationText string) {
+	recipient := pushover.NewRecipient("gznej3rKEVAvPUxu9vvNnqpmZpokzF")
+	message := pushover.NewMessage(notificationText)
+
+	response, err := pns.pushOverClient.SendMessage(message, recipient)
+	if err != nil {
+		log.Panic(err)
 	}
 
+	log.Println(response)
+}
+
+func (pns *pushNotificationSender) OneSignalPushNotification(notificationText string) {
 	appId := config.PUSH_NOTIFICATION_ENV.ONE_SIGNAL_APP_ID
 	restApiKey := config.PUSH_NOTIFICATION_ENV.ONE_SIGNAL_REST_API_KEY
 
@@ -45,15 +67,15 @@ func (pns *pushNotificationSender) PushNotification(notificationText string) {
 	stringMap := onesignal.StringMap{En: &notificationText}
 	notification.Contents = *onesignal.NewNullableStringMap(&stringMap)
 
-	request := pns.apiClient.DefaultApi.CreateNotification(osAuthCtx)
+	request := pns.oneSignalClient.DefaultApi.CreateNotification(osAuthCtx)
 
 	_, r, err := request.Notification(notification).Execute()
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CreateNotification`: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		fmt.Fprintf(os.Stderr, "[One Signal] Error when calling `CreateNotification`: %v\n", err)
+		fmt.Fprintf(os.Stderr, "[One Signal] Full HTTP response: %v\n", r)
 		return
 	}
 
-	fmt.Println("Push notification sent successfully!")
+	fmt.Println("[One Signal] Push notification sent successfully!")
 }

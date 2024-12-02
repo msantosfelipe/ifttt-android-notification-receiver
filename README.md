@@ -8,6 +8,7 @@ Project made to centralize notification propagation workflow
 This is made using toll like IFTTT or Macrodroid
 
 - The service filters the notifications of interest and re-send it via Notification
+    - Pushover: https://github.com/gregdel/pushover
     - One Signal: Google Android (FCM) Configuration
     - Gen Firebase https://documentation.onesignal.com/docs/android-firebase-credentials
     - Configure Android SDK https://documentation.onesignal.com/docs/android-sdk-setup

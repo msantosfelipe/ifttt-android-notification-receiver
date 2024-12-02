@@ -32,8 +32,12 @@ func logEnabledSenders() {
 		fmt.Println("Email is enabled")
 	}
 
-	if config.PUSH_NOTIFICATION_ENV.ENABLE {
-		fmt.Println("Push notification is enabled")
+	if config.PUSH_NOTIFICATION_ENV.ENABLE_ONE_SIGNAL {
+		fmt.Println("Push notification via OneSignal is enabled")
+	}
+
+	if config.PUSH_NOTIFICATION_ENV.ENABLE_PUSHOVER {
+		fmt.Println("Push notification via Pushover is enabled")
 	}
 }
 

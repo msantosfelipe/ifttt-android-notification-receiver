@@ -10,6 +10,7 @@ require (
 
 require (
 	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/gregdel/pushover v1.3.1 // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.0.0-20210323180902-22b0adad7558 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
