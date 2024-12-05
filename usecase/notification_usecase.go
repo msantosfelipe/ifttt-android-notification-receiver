@@ -30,6 +30,7 @@ func (uc *usecase) ProcessNotification(notification domain.Notification) {
 		return
 	}
 
+	fmt.Println("validou")
 	uc.mailSender.SendMail(notification.Name, notification.Body)
 
 	uc.pushNotificationSender.PushNotification(

@@ -25,7 +25,7 @@ func InitVars() {
 		API_PREFIX:     os.Getenv("API_PREFIX"),
 		PORT:           os.Getenv("PORT"),
 		VALID_API_KEY:  os.Getenv("VALID_API_KEY"),
-		ALLOW_ALL_APPS: parseBool(os.Getenv("ALLOW_ALL_APPS")),
+		ALLOW_ALL_APPS: parseBool(os.Getenv("ALLOW_ANY_APP")),
 		ALLOWED_APPS:   parseList(os.Getenv("ALLOWED_APPS")),
 		ALLOWED_TITLES: parseList(os.Getenv("ALLOWED_TITLES")),
 	}
@@ -47,6 +47,7 @@ func InitVars() {
 		ONE_SIGNAL_REST_API_KEY: os.Getenv("ONE_SIGNAL_REST_API_KEY"),
 		ONE_SIGNAL_SEGMENT:      os.Getenv("ONE_SIGNAL_SEGMENT"),
 		PUSH_OVER_APP_TOKEN:     os.Getenv("PUSH_OVER_APP_TOKEN"),
+		PUSH_OVER_APP_RECIPIENT: os.Getenv("PUSH_OVER_APP_RECIPIENT"),
 	}
 }
 

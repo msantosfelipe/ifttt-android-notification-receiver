@@ -40,7 +40,7 @@ func (pns *pushNotificationSender) PushNotification(notificationText string) {
 	}
 }
 func (pns *pushNotificationSender) PushOverlPushNotification(notificationText string) {
-	recipient := pushover.NewRecipient("gznej3rKEVAvPUxu9vvNnqpmZpokzF")
+	recipient := pushover.NewRecipient(config.PUSH_NOTIFICATION_ENV.PUSH_OVER_APP_RECIPIENT)
 	message := pushover.NewMessage(notificationText)
 
 	response, err := pns.pushOverClient.SendMessage(message, recipient)
