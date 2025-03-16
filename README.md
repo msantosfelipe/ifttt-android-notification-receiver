@@ -1,5 +1,9 @@
 # ifttt-android-notification-receiver
 
+> Deprecating project - New version: [notification-receiver-lambda](https://github.com/msantosfelipe/notification-receiver-lambda )
+<br>
+<br>
+
 Project made to centralize notification propagation workflow
 
 ![Service draw](<draw.png>)
